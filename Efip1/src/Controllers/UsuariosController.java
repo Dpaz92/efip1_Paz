@@ -3,17 +3,19 @@ package Controllers;
 import Controllers.Interfaces.ILoginService;
 import Controllers.Interfaces.ISessionService;
 import Data.DataService;
+import Data.UsuariosRepository;
 import Models.Exceptions.InvalidPasswordException;
 import Models.Exceptions.UserNotFoundException;
 import Services.LoginService;
 
+import java.sql.SQLException;
+
 public class UsuariosController {
     private ISessionService sessionService;
     private ILoginService loginService;
-    private DataService dataService;
 
-    public UsuariosController(DataService dataService, ISessionService sessionService) {
-        this.loginService = new LoginService(dataService);
+    public UsuariosController(ISessionService sessionService) {
+        this.loginService = new LoginService();
         this.sessionService = sessionService;
     }
 
@@ -30,7 +32,7 @@ public class UsuariosController {
 
             sessionService.saveUserToken(user);
             return true;
-        } catch (UserNotFoundException | InvalidPasswordException e) {
+        } catch (UserNotFoundException | InvalidPasswordException | SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
             return false;
         }

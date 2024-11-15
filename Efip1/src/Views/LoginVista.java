@@ -14,9 +14,9 @@ public class LoginVista {
     private UsuariosController usuariosController;
     private ISessionService sessionService;
 
-    public LoginVista(DataService dataService, ISessionService sessionService) {
+    public LoginVista(ISessionService sessionService) {
         this.sessionService = sessionService;
-        this.usuariosController = new UsuariosController(dataService, sessionService);
+        this.usuariosController = new UsuariosController(sessionService);
         this.displayLogin();
     }
 

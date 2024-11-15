@@ -15,9 +15,8 @@ public class VistaCrearEntrenador {
     private ISessionService sessionService;
     private EntrenadorController entrenadorController;
 
-    public VistaCrearEntrenador(DataService dataService, ISessionService sessionService) {
-        this.dataService = dataService;
-        this.entrenadorController = new EntrenadorController(dataService, sessionService);
+    public VistaCrearEntrenador(ISessionService sessionService) {
+        this.entrenadorController = new EntrenadorController(sessionService);
         this.vista();
     }
 
@@ -105,7 +104,7 @@ public class VistaCrearEntrenador {
     }
 
     private int save() {
-
+        this.entrenadorController.create(entrenadorDTO);
         return 10;
     }
 

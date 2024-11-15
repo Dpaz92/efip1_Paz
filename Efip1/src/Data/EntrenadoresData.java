@@ -21,7 +21,7 @@ public class EntrenadoresData extends Data {
     }
 
     public boolean add(EntrenadorDTO entrenadorDTO) {
-        Entrenador entrenador = new Entrenador(entrenadores.size(), entrenadorDTO.nombre, entrenadorDTO.apellido, entrenadorDTO.email, 1);
+        Entrenador entrenador = new Entrenador(entrenadores.size(), entrenadorDTO.nombre, entrenadorDTO.apellido, entrenadorDTO.email);
         entrenadores.add(entrenador);
         return true;
     }

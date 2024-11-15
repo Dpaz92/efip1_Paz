@@ -2,15 +2,17 @@ package Controllers;
 
 import Controllers.Interfaces.IEntrenadorController;
 import Controllers.Interfaces.ISessionService;
-import Data.DataService;
+import Data.EntrenadoresRepository;
+import Models.Entrenador;
 import Models.dto.EntrenadorDTO;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class EntrenadorController implements IEntrenadorController {
-    DataService dataService;
     ISessionService sessionService;
 
-    public EntrenadorController(DataService dataService, ISessionService sessionService) {
-        this.dataService = dataService;
+    public EntrenadorController(ISessionService sessionService) {
+
         this.sessionService = sessionService;
     }
 
@@ -19,7 +21,18 @@ public class EntrenadorController implements IEntrenadorController {
         if (!this.sessionService.isLoggedIn()) {
             return false;
         }
-        this.dataService.addEntrenador(entrenador);
-        return true;
+
+        EntrenadoresRepository entrenadoresRepository = new EntrenadoresRepository();
+        try {
+            return entrenadoresRepository.Insertar(entrenador);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public ArrayList<Entrenador> listar() throws SQLException, ClassNotFoundException {
+        EntrenadoresRepository entrenadoresRepository = new EntrenadoresRepository();
+        return entrenadoresRepository.Listar();
     }
 }

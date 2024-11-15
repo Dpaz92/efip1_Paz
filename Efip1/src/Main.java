@@ -1,5 +1,6 @@
 import Controllers.Interfaces.ISessionService;
 import Data.DataService;
+import Data.DatabaseConnection;
 import Services.VideoUploaderListener;
 import Services.SessionService;
 import Views.*;
@@ -32,7 +33,7 @@ public class Main {
                     break;
                 case 2:
                     while (!sessionService.isLoggedIn()) {
-                        LoginVista login = new LoginVista(dataService, sessionService);
+                        LoginVista login = new LoginVista(sessionService);
 
                         while (sessionService.isLoggedIn()) {
                             MenuPrincipal menuPrincipal = new MenuPrincipal(dataService, sessionService);

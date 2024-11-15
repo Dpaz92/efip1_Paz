@@ -3,6 +3,7 @@ package Data;
 import Models.Usuario;
 import Models.dto.EntrenadorDTO;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DataService {
@@ -46,7 +47,7 @@ public class DataService {
         return usuariosData.getUsuarios();
     }
 
-    public Usuario getUsuario(String email) {
+    public Usuario getUsuario(String email) throws SQLException, ClassNotFoundException {
         return usuariosData.getUsuario(email);
     }
 

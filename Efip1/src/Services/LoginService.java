@@ -4,20 +4,24 @@ import Controllers.Interfaces.ILoginService;
 import Controllers.Interfaces.ISessionService;
 import Data.DataService;
 import Data.IMockData;
+import Data.UsuariosRepository;
 import Models.Exceptions.InvalidPasswordException;
 import Models.Exceptions.UserNotFoundException;
 import Models.Usuario;
 
-public class LoginService implements ILoginService {
-    private DataService dataService;
+import java.sql.SQLException;
 
-    public LoginService(DataService dataService) {
-        this.dataService = dataService;
+public class LoginService implements ILoginService {
+    private UsuariosRepository usuariosRepository;
+
+    public LoginService() {
+        this.usuariosRepository = new UsuariosRepository();
     }
 
-    public Usuario login(String email, String contrasena) throws UserNotFoundException, InvalidPasswordException {
+    public Usuario login(String email, String contrasena) throws UserNotFoundException, InvalidPasswordException, SQLException, ClassNotFoundException {
 
-        Usuario usuario = this.dataService.getUsuario(email);
+        Usuario usuario = this.usuariosRepository.getUsuarioByEmail(email);
+
         if (usuario == null) {
             throw new UserNotFoundException("El email no esta asociado a ningun usuario");
         }

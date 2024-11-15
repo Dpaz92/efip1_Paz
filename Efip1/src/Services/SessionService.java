@@ -24,6 +24,5 @@ public class SessionService implements ISessionService {
         this.usuarioLogueado = null;
         return true;
     }
-
 }
 

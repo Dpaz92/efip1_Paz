@@ -4,18 +4,19 @@ import Controllers.Interfaces.ISessionService;
 import Data.DataService;
 import Views.Comunes.ScreenCleaner;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MenuEntrenadores {
     DataService dataService;
     ISessionService sessionService;
 
-    public MenuEntrenadores(DataService dataService) {
-        this.dataService = dataService;
+    public MenuEntrenadores(ISessionService sessionService) throws SQLException, ClassNotFoundException {
+        this.sessionService = sessionService;
         this.vista();
     }
 
-    public int vista() {
+    public int vista() throws SQLException, ClassNotFoundException {
         ScreenCleaner.cleanScreen();
         opciones();
         int opcionEntrenadores = opcionEntrenadores();
@@ -23,12 +24,13 @@ public class MenuEntrenadores {
             switch (opcionEntrenadores) {
                 case 1:
                     //Crear entrenador
-                    VistaCrearEntrenador vistaCrearEntrenador = new VistaCrearEntrenador(dataService, sessionService);
+                    VistaCrearEntrenador vistaCrearEntrenador = new VistaCrearEntrenador(sessionService);
                     opcionEntrenadores = 0;
                     break;
                 case 2:
                     //Listar entrenadores
-                    VistaListarEntrenador vistaListarEntrenador = new VistaListarEntrenador(dataService);
+                    VistaListarEntrenador vistaListarEntrenador = new VistaListarEntrenador(sessionService);
+                    opcionEntrenadores = 0;
                     break;
                 case 3:
                     //Editar entrenador

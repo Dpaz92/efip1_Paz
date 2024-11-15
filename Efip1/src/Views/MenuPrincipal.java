@@ -6,6 +6,7 @@ import Data.DataService;
 import Views.Comunes.ScreenCleaner;
 import Views.Entrenadores.MenuEntrenadores;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -13,14 +14,14 @@ public class MenuPrincipal {
     ISessionService sessionService;
     UsuariosController usuariosController;
 
-    public MenuPrincipal(DataService dataService, ISessionService sessionService) {
+    public MenuPrincipal(DataService dataService, ISessionService sessionService) throws SQLException, ClassNotFoundException {
         this.dataService = dataService;
         this.sessionService = sessionService;
-        this.usuariosController = new UsuariosController(dataService, sessionService);
+        this.usuariosController = new UsuariosController(sessionService);
         this.principal();
     }
 
-    public void principal() {
+    public void principal() throws SQLException, ClassNotFoundException {
         titulo();
         menu();
         int moduloSeleccionado = seleccionDeMenu();
@@ -28,7 +29,7 @@ public class MenuPrincipal {
             switch (moduloSeleccionado) {
                 case 1:
                     //Entrenadores
-                    MenuEntrenadores menuEntrenadores = new MenuEntrenadores(dataService);
+                    MenuEntrenadores menuEntrenadores = new MenuEntrenadores(sessionService);
                     moduloSeleccionado = menuEntrenadores.vista();
                     break;
                 case 2:
